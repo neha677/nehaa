@@ -1,197 +1,379 @@
-import React from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neha Rajendran— Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles reset */
+        :root {
+            --color-primary: #111827; /* Dark Gray / Black */
+            --color-secondary: #6B7280; /* Gray 500/600 */
+            --color-background: #F9FAFB; /* Gray 50 */
+            --color-card: #FFFFFF; /* White */
+            --color-indigo: #6366F1; /* Indigo 500 */
+            --color-purple: #A855F7; /* Purple 500 */
+            --max-width: 80rem;
+        }
 
-// Portfolio.jsx
-// Single-file React component for a personal portfolio page.
-// Uses Tailwind CSS classes. Drop into a React + Tailwind project.
+        * {
+            box-sizing: border-box;
+        }
 
-export default function Portfolio() {
-  const projects = [
-    {
-      title: "Plant Disease Detection",
-      desc: "A mini-project that detects plant diseases from leaf images using a CNN model. Includes training pipeline and web demo.",
-      tags: ["Python", "TensorFlow", "Flask"],
-      link: "#"
-    },
-    {
-      title: "Design Thinking Case Study",
-      desc: "An applied design thinking project focused on improving student services — research, prototyping and testing.",
-      tags: ["Design", "Research", "Figma"],
-      link: "#"
-    },
-    {
-      title: "Simple Electronics Simulator",
-      desc: "A small web app that visualizes basic circuit concepts (KVL, KCL) and lets users change components interactively.",
-      tags: ["JavaScript", "Canvas", "Education"],
-      link: "#"
-    }
-  ];
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--color-primary);
+            background-color: var(--color-background);
+            min-height: 100vh;
+        }
 
-  const skills = [
-    "HTML & CSS",
-    "JavaScript (React)",
-    "Python (ML / Data)",
-    "Figma / Design Thinking",
-    "Git & GitHub",
-    "Basic Electronics"
-  ];
+        /* Utility classes replacement */
+        .max-w-5xl { max-width: 64rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+        .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+        .py-12 { padding-top: 3rem; padding-bottom: 3rem; }
+        .mt-4 { margin-top: 1rem; }
+        .mt-6 { margin-top: 1.5rem; }
+        .mt-16 { margin-top: 4rem; }
+        .mb-24 { margin-bottom: 6rem; }
+        .gap-3 { gap: 0.75rem; }
+        .gap-4 { gap: 1rem; }
+        .gap-6 { gap: 1.5rem; }
+        .gap-8 { gap: 2rem; }
+        .space-x-4 > * + * { margin-left: 1rem; }
+        .space-y-2 > * + * { margin-top: 0.5rem; }
 
-  return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
-      <header className="bg-white shadow">
-        <div className="max-w-5xl mx-auto px-6 py-6 flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-extrabold tracking-tight">Neha Rajendran— Portfolio</h1>
-            <p className="text-sm text-gray-500">Applied Design Thinking • Student • Problem solver</p>
-          </div>
-          <nav className="space-x-4 hidden md:block">
-            <a href="#about" className="text-sm hover:underline">About</a>
-            <a href="#projects" className="text-sm hover:underline">Projects</a>
-            <a href="#skills" className="text-sm hover:underline">Skills</a>
-            <a href="#contact" className="text-sm hover:underline">Contact</a>
-          </nav>
-        </div>
-      </header>
+        /* General layout */
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .justify-center { justify-content: center; }
+        .md\:justify-end { justify-content: flex-end; } /* Applies only on larger screens */
+        .flex-wrap { flex-wrap: wrap; }
+        .inline-flex { display: inline-flex; }
 
-      <main className="max-w-5xl mx-auto px-6 py-12">
-        {/* Hero */}
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-          <div className="md:col-span-2">
-            <h2 className="text-4xl font-bold leading-tight">Hi, I’m Neha 👋</h2>
-            <p className="mt-4 text-lg text-gray-700">
-              I’m a 19-year-old Applied Design Thinking student from Coimbatore who loves building projects that
-              combine design, code and social impact. I enjoy dancing, singing and experimenting with small ML and
-              electronics projects.
-            </p>
+        /* Typography */
+        .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+        .text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+        .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+        .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+        .font-extrabold { font-weight: 800; }
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .font-medium { font-weight: 500; }
+        .tracking-tight { letter-spacing: -0.025em; }
+        .leading-tight { line-height: 1.25; }
+        .text-white { color: var(--color-card); }
+        .text-gray-900 { color: var(--color-primary); }
+        .text-gray-700 { color: #374151; }
+        .text-gray-600 { color: #4B5563; }
+        .text-gray-500 { color: var(--color-secondary); }
 
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a
-                href="#projects"
-                className="inline-flex items-center px-4 py-2 rounded-2xl bg-black text-white text-sm font-medium"
-              >
-                View Projects
-n              </a>
-              <a
-                href="#contact"
-                className="inline-flex items-center px-4 py-2 rounded-2xl border border-gray-200 text-sm font-medium"
-              >
-                Get in touch
-n              </a>
-            </div>
+        /* Components */
+        .header {
+            background-color: var(--color-card);
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
 
-            <div className="mt-6 text-sm text-gray-500">
-              <strong>Quick links:</strong> Resume · GitHub · LinkedIn
-            </div>
-          </div>
+        .header a:hover { text-decoration: underline; }
 
-          <div className="flex justify-center md:justify-end">
-            <div className="w-48 h-48 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-2xl shadow-xl flex items-center justify-center text-white font-bold text-xl">
-              Photo
-            </div>
-          </div>
-        </section>
+        .button-primary {
+            background-color: var(--color-primary);
+            color: var(--color-card);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px; /* rounded-2xl */
+            font-weight: 500;
+            text-decoration: none;
+        }
 
-        {/* About */}
-        <section id="about" className="mt-16">
-          <h3 className="text-2xl font-semibold">About me</h3>
-          <div className="mt-4 text-gray-700">
-            <p>
-              I enjoy solving real problems through a mix of human-centered design and practical engineering. My
-              studies in Applied Design Thinking taught me how to conduct user research, prototype quickly and iterate
-              based on feedback. When I’m not studying, I build small ML demos, write Python scripts and make
-              electronics projects to understand the fundamentals.
-            </p>
-          </div>
+        .button-secondary {
+            background-color: var(--color-card);
+            color: var(--color-primary);
+            border: 1px solid #E5E7EB; /* border-gray-200 */
+            padding: 0.5rem 1rem;
+            border-radius: 9999px; /* rounded-2xl */
+            font-weight: 500;
+            text-decoration: none;
+        }
 
-          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="bg-white rounded-lg p-4 shadow">
-              <h4 className="font-medium">Education</h4>
-              <p className="text-sm text-gray-600 mt-2">Applied Design Thinking — Academic year 2024-25</p>
-            </div>
-            <div className="bg-white rounded-lg p-4 shadow">
-              <h4 className="font-medium">Interests</h4>
-              <p className="text-sm text-gray-600 mt-2">Social services, Dancing, Singing, Machine Learning</p>
-            </div>
-          </div>
-        </section>
+        /* Photo Placeholder */
+        .photo-placeholder {
+            width: 12rem;
+            height: 12rem;
+            background-image: linear-gradient(to bottom right, var(--color-indigo), var(--color-purple));
+            border-radius: 0.75rem; /* rounded-2xl */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
 
-        {/* Projects */}
-        <section id="projects" className="mt-16">
-          <div className="flex items-center justify-between">
-            <h3 className="text-2xl font-semibold">Selected Projects</h3>
-            <p className="text-sm text-gray-500">Click a project to see details</p>
-          </div>
+        /* Card styles */
+        .card {
+            background-color: var(--color-card);
+            border-radius: 0.5rem; /* rounded-lg */
+            padding: 1.25rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            transition: box-shadow 150ms ease-in-out;
+        }
 
-          <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            {projects.map((p, i) => (
-              <article key={i} className="bg-white rounded-lg p-5 shadow hover:shadow-md transition">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h4 className="text-lg font-semibold">{p.title}</h4>
-                    <p className="text-sm text-gray-600 mt-2">{p.desc}</p>
+        .project-card:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+        }
 
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {p.tags.map((t, idx) => (
-                        <span key={idx} className="text-xs px-2 py-1 border rounded-full">{t}</span>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="ml-4">
-                    <a href={p.link} className="text-sm inline-flex items-center px-3 py-2 rounded-lg border">
-                      View
-                    </a>
-                  </div>
+        .tag {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border: 1px solid #D1D5DB; /* border */
+            border-radius: 9999px; /* rounded-full */
+        }
+
+        .skill-chip {
+            padding: 0.5rem 0.75rem;
+            background-color: var(--color-card);
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            font-size: 0.875rem;
+        }
+
+        /* Form styling */
+        .form-input {
+            border: 1px solid #D1D5DB; /* border */
+            border-radius: 0.25rem; /* rounded */
+            padding: 0.5rem 0.75rem;
+        }
+
+        .form-textarea {
+            border: 1px solid #D1D5DB; /* border */
+            border-radius: 0.25rem; /* rounded */
+            padding: 0.5rem 0.75rem;
+            resize: vertical;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--color-card);
+            border-top: 1px solid #E5E7EB;
+        }
+
+        /* Responsive Grid System (Simplified) */
+        .grid { display: grid; }
+        .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        
+        @media (min-width: 768px) { /* md: equivalent */
+            .md\:block { display: block !important; }
+            .md\:col-span-2 { grid-column: span 2 / span 2; }
+            .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .md\:justify-end { justify-content: flex-end !important; }
+            .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        
+        @media (max-width: 767px) { /* Hidden on mobile/small screens */
+            .hidden { display: none; }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="min-h-screen">
+        <header class="header">
+            <div class="max-w-5xl mx-auto px-6 py-6 flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-extrabold tracking-tight">Neha Rajendran— Portfolio</h1>
+                    <p class="text-sm text-gray-500">Applied Design Thinking • Student • Problem solver</p>
                 </div>
-              </article>
-            ))}
-          </div>
-        </section>
+                <nav class="space-x-4 hidden md:block">
+                    <a href="#about" class="text-sm">About</a>
+                    <a href="#projects" class="text-sm">Projects</a>
+                    <a href="#skills" class="text-sm">Skills</a>
+                    <a href="#contact" class="text-sm">Contact</a>
+                </nav>
+            </div>
+        </header>
 
-        {/* Skills */}
-        <section id="skills" className="mt-16">
-          <h3 className="text-2xl font-semibold">Skills</h3>
-          <div className="mt-4 flex flex-wrap gap-3">
-            {skills.map((s, idx) => (
-              <div key={idx} className="px-3 py-2 bg-white rounded-lg shadow text-sm">{s}</div>
-            ))}
-          </div>
-        </section>
+        <main class="max-w-5xl mx-auto px-6 py-12">
+            <section class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <div class="md:col-span-2">
+                    <h2 class="text-4xl font-bold leading-tight">Hi, I’m Neha 👋</h2>
+                    <p class="mt-4 text-lg text-gray-700">
+                        I’m a 19-year-old Applied Design Thinking student from Coimbatore who loves building projects that
+                        combine design, code and social impact. I enjoy dancing, singing and experimenting with small ML and
+                        electronics projects.
+                    </p>
 
-        {/* Contact */}
-        <section id="contact" className="mt-16 mb-24 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="md:col-span-2 bg-white p-6 rounded-lg shadow">
-            <h3 className="text-xl font-semibold">Contact me</h3>
-            <p className="text-sm text-gray-600 mt-2">Email: <strong>neha@example.com</strong> · Phone: <strong>+91-XXXXXXXXXX</strong></p>
+                    <div class="mt-6 flex flex-wrap gap-3">
+                        <a href="#projects" class="button-primary">
+                            View Projects
+                        </a>
+                        <a href="#contact" class="button-secondary">
+                            Get in touch
+                        </a>
+                    </div>
 
-            <form className="mt-6 grid gap-3">
-              <input className="border rounded px-3 py-2" placeholder="Your name" />
-              <input className="border rounded px-3 py-2" placeholder="Your email" />
-              <textarea className="border rounded px-3 py-2" rows={4} placeholder="Message"></textarea>
-              <div>
-                <button type="button" className="px-4 py-2 rounded-2xl bg-black text-white">Send message</button>
-              </div>
-            </form>
-          </div>
+                    <div class="mt-6 text-sm text-gray-500">
+                        <strong>Quick links:</strong> Resume · GitHub · LinkedIn
+                    </div>
+                </div>
 
-          <aside className="bg-white p-6 rounded-lg shadow">
-            <h4 className="font-medium">Extras</h4>
-            <ul className="text-sm text-gray-600 mt-3 space-y-2">
-              <li>Resume (PDF)</li>
-              <li>GitHub: github.com/your-username</li>
-              <li>LinkedIn: linkedin.com/in/your-profile</li>
-            </ul>
-          </aside>
-        </section>
-      </main>
+                <div class="flex justify-center md:justify-end">
+                    <div class="photo-placeholder">
+                        Photo
+                    </div>
+                </div>
+            </section>
 
-      <footer className="bg-white border-t">
-        <div className="max-w-5xl mx-auto px-6 py-6 text-sm text-gray-500 flex items-center justify-between">
-          <div>© {new Date().getFullYear()} Neha. All rights reserved.</div>
-          <div className="space-x-3">
-            <a href="#" className="hover:underline">Privacy</a>
-            <a href="#" className="hover:underline">Terms</a>
-          </div>
-        </div>
-      </footer>
+            ---
+
+            <section id="about" class="mt-16">
+                <h3 class="text-2xl font-semibold">About me</h3>
+                <div class="mt-4 text-gray-700">
+                    <p>
+                        I enjoy solving real problems through a mix of human-centered design and practical engineering. My
+                        studies in Applied Design Thinking taught me how to conduct user research, prototype quickly and iterate
+                        based on feedback. When I’m not studying, I build small ML demos, write Python scripts and make
+                        electronics projects to understand the fundamentals.
+                    </p>
+                </div>
+
+                <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="card">
+                        <h4 class="font-medium">Education</h4>
+                        <p class="text-sm text-gray-600 mt-2">Applied Design Thinking — Academic year 2024-25</p>
+                    </div>
+                    <div class="card">
+                        <h4 class="font-medium">Interests</h4>
+                        <p class="text-sm text-gray-600 mt-2">Social services, Dancing, Singing, Machine Learning</p>
+                    </div>
+                </div>
+            </section>
+
+            ---
+
+            <section id="projects" class="mt-16">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-2xl font-semibold">Selected Projects</h3>
+                    <p class="text-sm text-gray-500">Click a project to see details</p>
+                </div>
+
+                <div class="mt-6 grid gap-4 sm:grid-cols-2">
+                    <article class="project-card">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="text-lg font-semibold">Plant Disease Detection</h4>
+                                <p class="text-sm text-gray-600 mt-2">A mini-project that detects plant diseases from leaf images using a CNN model. Includes training pipeline and web demo.</p>
+
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="tag">Python</span>
+                                    <span class="tag">TensorFlow</span>
+                                    <span class="tag">Flask</span>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <a href="#" class="text-sm inline-flex items-center px-3 py-2 rounded-lg border button-secondary">
+                                    View
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="text-lg font-semibold">Design Thinking Case Study</h4>
+                                <p class="text-sm text-gray-600 mt-2">An applied design thinking project focused on improving student services — research, prototyping and testing.</p>
+
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="tag">Design</span>
+                                    <span class="tag">Research</span>
+                                    <span class="tag">Figma</span>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <a href="#" class="text-sm inline-flex items-center px-3 py-2 rounded-lg border button-secondary">
+                                    View
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="text-lg font-semibold">Simple Electronics Simulator</h4>
+                                <p class="text-sm text-gray-600 mt-2">A small web app that visualizes basic circuit concepts (KVL, KCL) and lets users change components interactively.</p>
+
+                                <div class="mt-3 flex flex-wrap gap-2">
+                                    <span class="tag">JavaScript</span>
+                                    <span class="tag">Canvas</span>
+                                    <span class="tag">Education</span>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <a href="#" class="text-sm inline-flex items-center px-3 py-2 rounded-lg border button-secondary">
+                                    View
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                    </div>
+            </section>
+
+            ---
+
+            <section id="skills" class="mt-16">
+                <h3 class="text-2xl font-semibold">Skills</h3>
+                <div class="mt-4 flex flex-wrap gap-3">
+                    <div class="skill-chip">HTML & CSS</div>
+                    <div class="skill-chip">JavaScript (React)</div>
+                    <div class="skill-chip">Python (ML / Data)</div>
+                    <div class="skill-chip">Figma / Design Thinking</div>
+                    <div class="skill-chip">Git & GitHub</div>
+                    <div class="skill-chip">Basic Electronics</div>
+                </div>
+            </section>
+
+            ---
+
+            <section id="contact" class="mt-16 mb-24 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="md:col-span-2 card p-6">
+                    <h3 class="text-xl font-semibold">Contact me</h3>
+                    <p class="text-sm text-gray-600 mt-2">Email: <strong>neha@example.com</strong> · Phone: <strong>+91-XXXXXXXXXX</strong></p>
+
+                    <form class="mt-6 grid gap-3">
+                        <input class="form-input" placeholder="Your name" />
+                        <input class="form-input" placeholder="Your email" />
+                        <textarea class="form-textarea" rows="4" placeholder="Message"></textarea>
+                        <div>
+                            <button type="button" class="px-4 py-2 rounded-2xl button-primary">Send message</button>
+                        </div>
+                    </form>
+                </div>
+
+                <aside class="card p-6">
+                    <h4 class="font-medium">Extras</h4>
+                    <ul class="text-sm text-gray-600 mt-3 space-y-2">
+                        <li>Resume (PDF)</li>
+                        <li>GitHub: github.com/your-username</li>
+                        <li>LinkedIn: linkedin.com/in/your-profile</li>
+                    </ul>
+                </aside>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="max-w-5xl mx-auto px-6 py-6 text-sm text-gray-500 flex items-center justify-between">
+                <div>&copy; 2024 Neha. All rights reserved.</div>
+                <div class="space-x-3">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+            </div>
+        </footer>
     </div>
-  );
-}
+</body>
+</html>
